@@ -20,51 +20,51 @@
         <div class="section__text">
             <div class="btn-container">
                 <button class="btn btn-color-2" onclick="window.open('')" > Face Recognition </button>
-                <button class="btn btn-color-1" onclick="speakToAlexa()"> Speech Recognition </button>
+                <button class="btn btn-color-1" id="speechRecognitionBtn"> Speech Recognition </button>
             </div>
         </div>
     </section>
     <h1>Welcome to the Alexa Client</h1>
     <script src="https://cdn.jsdelivr.net/npm/alexa-sdk@latest/dist/alexa-sdk-browser.min.js"></script>
     <script>
-        function speakToAlexa() {
-            // Set up the Alexa SDK
-            const alexaClient = new Alexa.BrowserClient();
+        const alexaClient = new Alexa.BrowserClient();
+        const handlers = {
+            'LaunchRequest': function () {
+                this.emit('HelloWorldIntent');
+            },
+            'HelloWorldIntent': function () {
+                const speechOutput = 'Hello, world! How can I assist you today?';
+                this.response.speak(speechOutput);
+                this.emit(':responseReady');
+            },
+            // Add more intent handlers as needed
+            'AMAZON.HelpIntent': function () {
+                const speechOutput = 'You can say hello to me, and I will respond with a greeting. How can I help you?';
+                this.response.speak(speechOutput);
+                this.emit(':responseReady');
+            },
+            'AMAZON.StopIntent': function () {
+                const speechOutput = 'Goodbye!';
+                this.response.speak(speechOutput);
+                this.emit(':responseReady');
+            },
+            'AMAZON.CancelIntent': function () {
+                const speechOutput = 'Goodbye!';
+                this.response.speak(speechOutput);
+                this.emit(':responseReady');
+            },
+        };
 
-            // Define your Alexa skill handlers
-            const handlers = {
-                'LaunchRequest': function () {
-                    this.emit('HelloWorldIntent');
-                },
-                'HelloWorldIntent': function () {
-                    const speechOutput = 'Hello, world! How can I assist you today?';
-                    this.response.speak(speechOutput);
-                    this.emit(':responseReady');
-                },
-                // Add more intent handlers as needed
-                'AMAZON.HelpIntent': function () {
-                    const speechOutput = 'You can say hello to me, and I will respond with a greeting. How can I help you?';
-                    this.response.speak(speechOutput);
-                    this.emit(':responseReady');
-                },
-                'AMAZON.StopIntent': function () {
-                    const speechOutput = 'Goodbye!';
-                    this.response.speak(speechOutput);
-                    this.emit(':responseReady');
-                },
-                'AMAZON.CancelIntent': function () {
-                    const speechOutput = 'Goodbye!';
-                    this.response.speak(speechOutput);
-                    this.emit(':responseReady');
-                },
-            };
+        // Set up the Alexa SDK with your skill ID and handlers
+        alexaClient.initializeWithClient({
+            'skillId': 'amzn1.ask.skill.bdcdd4ab-474d-47f5-bd6a-362504f9d2d1',
+            'handlers': handlers
+        });
 
-            // Set up the Alexa SDK with your skill ID and handlers
-            alexaClient.initializeWithClient({
-                'skillId': 'amzn1.ask.skill.bdcdd4ab-474d-47f5-bd6a-362504f9d2d1',
-                'handlers': handlers
-            });
-        }
+        document.getElementById('speechRecognitionBtn').addEventListener('click', function() {
+            // Add any additional speech recognition functionality here
+            console.log('Speech Recognition button clicked');
+        });
     </script>
 </body>
 </html>
