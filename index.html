@@ -31,6 +31,52 @@
         </div>
       </div>
     </section>
+    <h1>Welcome to the Alexa Client</h1>
+  <button onclick="speakToAlexa()">Speak to Alexa</button>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1000.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/alexa-sdk@latest/dist/alexa-sdk.min.js"></script>
+  <script>
+    function speakToAlexa() {
+      // Set up the Alexa SDK
+      const Alexa = require('alexa-sdk');
+
+      // Define your Alexa skill handlers
+      const handlers = {
+        'LaunchRequest': function () {
+          this.emit('HelloWorldIntent');
+        },
+        'HelloWorldIntent': function () {
+          const speechOutput = 'Hello, world! How can I assist you today?';
+          this.response.speak(speechOutput);
+          this.emit(':responseReady');
+        },
+        // Add more intent handlers as needed
+        'AMAZON.HelpIntent': function () {
+          const speechOutput = 'You can say hello to me, and I will respond with a greeting. How can I help you?';
+          this.response.speak(speechOutput);
+          this.emit(':responseReady');
+        },
+        'AMAZON.StopIntent': function () {
+          const speechOutput = 'Goodbye!';
+          this.response.speak(speechOutput);
+          this.emit(':responseReady');
+        },
+        'AMAZON.CancelIntent': function () {
+          const speechOutput = 'Goodbye!';
+          this.response.speak(speechOutput);
+          this.emit(':responseReady');
+        },
+      };
+
+      // Set up the Alexa SDK with your skill ID and handlers
+      exports.handler = function (event, context, callback) {
+        const alexa = Alexa.handler(event, context, callback);
+        alexa.appId = 'amzn1.ask.skill.bdcdd4ab-474d-47f5-bd6a-362504f9d2d1';
+        alexa.registerHandlers(handlers);
+        alexa.execute();
+      };
+    }
+  </script>
     </body>
     </html>
     
