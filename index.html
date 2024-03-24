@@ -25,12 +25,11 @@
         </div>
     </section>
     <h1>Welcome to the Alexa Client</h1>
-    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1000.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/alexa-sdk@latest/dist/alexa-sdk.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alexa-sdk@latest/dist/alexa-sdk-browser.min.js"></script>
     <script>
         function speakToAlexa() {
             // Set up the Alexa SDK
-            const Alexa = require('alexa-sdk');
+            const alexaClient = new Alexa.BrowserClient();
 
             // Define your Alexa skill handlers
             const handlers = {
@@ -61,12 +60,10 @@
             };
 
             // Set up the Alexa SDK with your skill ID and handlers
-            exports.handler = function (event, context, callback) {
-                const alexa = Alexa.handler(event, context, callback);
-                alexa.appId = 'amzn1.ask.skill.bdcdd4ab-474d-47f5-bd6a-362504f9d2d1';
-                alexa.registerHandlers(handlers);
-                alexa.execute();
-            };
+            alexaClient.initializeWithClient({
+                'skillId': 'amzn1.ask.skill.bdcdd4ab-474d-47f5-bd6a-362504f9d2d1',
+                'handlers': handlers
+            });
         }
     </script>
 </body>
