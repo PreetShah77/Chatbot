@@ -11,6 +11,8 @@ from ask_sdk_core.skill_builder import SkillBuilder
 from ask_sdk_core.dispatch_components import AbstractRequestHandler
 from ask_sdk_core.dispatch_components import AbstractExceptionHandler
 from ask_sdk_core.handler_input import HandlerInput
+from flask import Flask
+from flask_ask_sdk.skill_adapter import SkillAdapter
 import requests
 import re
 
@@ -253,3 +255,12 @@ sb.add_request_handler(IntentReflectorHandler()) # make sure IntentReflectorHand
 sb.add_exception_handler(CatchAllExceptionHandler())
 
 lambda_handler = sb.lambda_handler()
+
+app = Flask(__name__)
+skill_response = SkillAdapter(
+    skill=sb.create(), skill_id='amzn1.ask.skill.bdcdd4ab-474d-47f5-bd6a-362504f9d2d1', app=app)
+
+skill_response.register(app=app, route="/")
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=3000, debug=True, ssl_context=None)
