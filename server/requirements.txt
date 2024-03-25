@@ -1,4 +1,4 @@
-boto3==1.28.78
-ask-sdk-core==1.19.0
-ask-sdk-webservice-support==1.3.3
-flask-ask-sdk==1.0.0
+boto3
+ask-sdk-core
+ask-sdk-webservice-support
+flask-ask-sdk
