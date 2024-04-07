@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Data</title>
+</head>
+<body>
+  <input type="text" id="studentName" placeholder="Enter student name">
+  <button onclick="getData()">Submit</button>
+  <table id="studentTable" border="1">
+    <thead id="tableHead">
+      <!-- Table headers will be filled here -->
+    </thead>
+    <tbody id="studentData">
+      <!-- Student data will be filled here -->
+    </tbody>
+  </table>
+
+  <script>
+    const sheetId = "1hl3uC3BmTu7GNFF_ixkCuqn4apPNcVdOA53htNwZDIY";
+    const sheetName = "AllStudents";
+
+    function getData() {
+      var studentName = document.getElementById("studentName").value;
+      var url = "https://script.google.com/macros/s/AKfycbwP3XOlI33GcQzZ1m7DWzt-CuwRy3YB8BBwGU_0lFf7KD56kUY/exec?spreadsheet=a&action=getbyname&id="+sheetId+"&sheet="+sheetName+"&sheetuser="+studentName+"&sheetuserIndex=2";
+      
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          displayData(data.records);
+        })
+        .catch(error => console.error('Error fetching data:', error));
+    }
+
+    function displayData(records) {
+      var tableHead = document.getElementById("tableHead");
+      var tableBody = document.getElementById("studentData");
+      
+      // Clear previous data
+      tableHead.innerHTML = "";
+      tableBody.innerHTML = "";
+
+      // Create table headers dynamically
+      var firstRecord = records[0];
+      var headerRow = document.createElement("tr");
+      for (var key in firstRecord) {
+        var th = document.createElement("th");
+        th.textContent = key;
+        headerRow.appendChild(th);
+      }
+      tableHead.appendChild(headerRow);
+
+      // Populate table with data
+      records.forEach(record => {
+        var row = document.createElement("tr");
+        for (var key in record) {
+          var cell = document.createElement("td");
+          cell.textContent = record[key];
+          row.appendChild(cell);
+        }
+        tableBody.appendChild(row);
+      });
+    }
+  </script>
+</body>
+</html>

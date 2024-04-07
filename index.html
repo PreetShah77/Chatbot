@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Information System</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #bf6450;
+  }
+  .container {
+    margin-top: 50px;
+  }
+  .button {
+    display: inline-block;
+    padding: 20px 40px;
+    margin: 10px;
+    font-size: 18px;
+    text-transform: uppercase;
+    border: 2px solid #333;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #bf6450;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .button:hover {
+    background-color: #00b392;
+  }
+  .logo {
+    width: 500px;
+    height: 100px;
+    margin-bottom: 20px;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <img class="logo" src="logo.png" alt="Logo">
+    <br>
+    <button class="button" onclick="window.location.href='http://localhost:3000'">Face Info</button>
+    <button class="button" onclick="window.location.href='http://localhost:8501'">Text/Speech</button>
+    <button class="button" onclick="window.location.href='https://c34d-14-139-122-251.ngrok-free.app'">Record Lecture</button>
+    <button class="button" onclick="window.location.href='https://c34d-14-139-122-251.ngrok-free.app'">Question from lectures
+</button>
+
+
+  </div>
+</body>
+</html>
